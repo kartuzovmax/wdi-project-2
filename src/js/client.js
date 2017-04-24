@@ -13,20 +13,7 @@ function init() {
   $('#saveButton').click(convertToImage);
 
   // Creating a canvas using Fabric.js
-  canvas = new fabric.Canvas('canvas', {
-    backgroundSize: 'cover'
-  });
-  var bgImage = new Image();
-  bgImage.setAttribute('crossOrigin', 'anonymous');
-  bgImage.onload = function() {
-    // this is syncronous
-    var fabricImage = new fabric.Image(bgImage);
-    canvas.setBackgroundImage(fabricImage);
-    canvas.backgroundImage.width = canvas.getWidth();
-    canvas.backgroundImage.height = canvas.getHeight();
-    canvas.renderAll();
-  };
-  bgImage.src = 'images/defaultBg.jpg';
+  loadCanvas();
 
 
   // canvas.setBackgroundImage('images/defaultBg.jpg');
@@ -41,7 +28,20 @@ function init() {
 }
 
 function loadCanvas() {
-
+  canvas = new fabric.Canvas('canvas', {
+    backgroundSize: 'cover'
+  });
+  var bgImage = new Image();
+  bgImage.setAttribute('crossOrigin', 'anonymous');
+  bgImage.onload = function() {
+    // this is syncronous
+    var fabricImage = new fabric.Image(bgImage);
+    canvas.setBackgroundImage(fabricImage);
+    canvas.backgroundImage.width = canvas.getWidth();
+    canvas.backgroundImage.height = canvas.getHeight();
+    canvas.renderAll();
+  };
+  bgImage.src = 'images/defaultBg.jpg';
 }
 
 function changeCanvasBackground() {
@@ -67,6 +67,7 @@ function setCanvasBackground() {
   //   };
   // }
   fabric.Image.fromURL($('#bgSearch').val(), function(oImg) {
+    $(oImg).attr('crossOrigin', 'anonymous');
     canvas.add(oImg);
     canvas.renderAll();
   });
