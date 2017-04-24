@@ -1,1 +1,10 @@
 <h1>User Profile</h1>
+<% if (locals.isLoggedIn) { %>
+  <h1>You are  Logged In </h1>
+  <a class="nav-link" href="/logout">Logout</a>
+  </li>
+  <% } else { %>
+    <h1>You are not Logged In </h1>
+    <a class="nav-link" href="/login">Log In</a>
+    <a class="nav-link" href="/register">Register</a>
+  <% } %>
