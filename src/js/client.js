@@ -1,26 +1,30 @@
-/* globals fabric saveAs */
+/* globals fabric  */
 
 console.log('hello world');
 
 $(init);
 
 var canvas;
+var stickersArray = [{}];
 
 function init() {
 
   $('canvas').click(changeCanvasBackground);
   $('#addStickerButton').click(addStickerToCanvas);
   $('#saveButton').click(convertToImage);
+  $('#saveProjectButton').click(saveProject);
+  $('#deleteStickerButton').click(deleteSticker);
 
   // Creating a canvas using Fabric.js
   loadCanvas();
-
 }
 
 function loadCanvas() {
+
   canvas = new fabric.Canvas('canvas', {
     backgroundSize: 'cover'
   });
+
   var bgImage = new Image();
   bgImage.setAttribute('crossOrigin', 'Anonymous');
   bgImage.onload = function() {
@@ -44,6 +48,7 @@ function addStickerToCanvas() {
 
   fabric.Image.fromURL($('#bgSearch').val(), function(oImg) {
     $(oImg).attr('crossOrigin', 'Anonymous');
+    addStickerToArray($('#bgSearch').val()); // adding sticker to the array
     $('#bgSearch').val(''); // clearing the text field
     oImg.on('selected', selectSticker);
     canvas.add(oImg);
@@ -54,11 +59,25 @@ function addStickerToCanvas() {
 function convertToImage() {
   canvas.deactivateAll().renderAll();
   window.open(canvas.toDataURL('png'));
-  // $(canvas).get(0).toBlob(function(blob) {
-  //   saveAs(blob, 'myIMG.png');
-  // });
 }
 
 function selectSticker() {
   console.log('Selected sticker!');
+}
+
+function deleteSticker() {
+  console.log('Delete sticker: ' + canvas.getActiveObject());
+  canvas.getActiveObject().remove();
+}
+
+function saveProject() {
+  console.log('Project saved');
+}
+
+function addStickerToArray(url) {
+  const newSticker = {
+    imgLink: url,
+    index: stickersArray.length
+  }
+  stickersArray.push(newSticker);
 }

@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  projects: { type: Array, required: false }
+  projects: [{ type: mongoose.Schema.ObjectId, ref: 'Project', required: false }]
 });
 
 userSchema.pre('save', function hashPassword(next) {
