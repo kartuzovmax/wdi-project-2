@@ -1,4 +1,4 @@
-/* globals fabric */
+/* globals fabric saveAs */
 
 console.log('hello world');
 
@@ -9,22 +9,12 @@ var canvas;
 function init() {
 
   $('canvas').click(changeCanvasBackground);
-  $('#bgApplyButton').click(setCanvasBackground);
+  $('#addStickerButton').click(addStickerToCanvas);
   $('#saveButton').click(convertToImage);
 
   // Creating a canvas using Fabric.js
   loadCanvas();
 
-
-  // canvas.setBackgroundImage('images/defaultBg.jpg');
-  // canvas.renderAll();
-  // canvas.renderTop();
-  //loadCanvas();
-
-  // Setting a default canvas background
-  //canvas.style.background = `url('images/defaultBg.jpg')`;
-  //canvas.style.backgroundSize = 'cover';
-  //context = canvas.getContext('2d');
 }
 
 function loadCanvas() {
@@ -32,7 +22,7 @@ function loadCanvas() {
     backgroundSize: 'cover'
   });
   var bgImage = new Image();
-  bgImage.setAttribute('crossOrigin', 'anonymous');
+  bgImage.setAttribute('crossOrigin', 'Anonymous');
   bgImage.onload = function() {
     // this is syncronous
     var fabricImage = new fabric.Image(bgImage);
@@ -50,30 +40,25 @@ function changeCanvasBackground() {
 
 }
 
-function setCanvasBackground() {
-  // console.log('setting background');
-  // console.log('link is ' + $('#bgSearch').val());
-  // $('canvas').css('background-image', 'url(' + $('#bgSearch').val() + ')');
-  // $('canvas').css('background-size', 'cover');
+function addStickerToCanvas() {
 
-  // makeBase();
-  //
-  // function makeBase() {
-  //   var baseImage = new Image();
-  //   baseImage.class = 'resize-drag';
-  //   baseImage.src = $('#bgSearch').val();
-  //   baseImage.onload = function(){
-  //     context.drawImage(baseImage, 0, 0);
-  //   };
-  // }
   fabric.Image.fromURL($('#bgSearch').val(), function(oImg) {
-    $(oImg).attr('crossOrigin', 'anonymous');
+    $(oImg).attr('crossOrigin', 'Anonymous');
+    $('#bgSearch').val(''); // clearing the text field
+    oImg.on('selected', selectSticker);
     canvas.add(oImg);
     canvas.renderAll();
-  });
+  },{crossOrigin: 'Anonymous'});
 }
 
 function convertToImage() {
   canvas.deactivateAll().renderAll();
   window.open(canvas.toDataURL('png'));
+  // $(canvas).get(0).toBlob(function(blob) {
+  //   saveAs(blob, 'myIMG.png');
+  // });
+}
+
+function selectSticker() {
+  console.log('Selected sticker!');
 }
