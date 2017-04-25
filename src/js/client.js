@@ -1,14 +1,11 @@
 /* globals fabric  */
 
-console.log('hello world');
-
 $(init);
 
 var canvas;
 
 function init() {
 
-  $('canvas').click(changeCanvasBackground);
   $('#addStickerButton').click(addStickerToCanvas);
   $('#saveButton').click(convertToImage);
   $('#saveProjectButton').click(saveProject);
@@ -37,17 +34,11 @@ function loadCanvas() {
   bgImage.src = 'images/defaultBg.jpg';
 }
 
-function changeCanvasBackground() {
-  console.log('changing background');
-  $('canvas').css('background-color', 'red');
-
-}
-
 function addStickerToCanvas() {
 
   fabric.Image.fromURL($('#bgSearch').val(), function(oImg) {
     $(oImg).attr('crossOrigin', 'Anonymous');
-    addStickerToArray($('#bgSearch').val()); // adding sticker to the array
+    //addStickerToArray($('#bgSearch').val()); // adding sticker to the array
     $('#bgSearch').val(''); // clearing the text field
     oImg.on('selected', selectSticker);
     canvas.add(oImg);
@@ -71,5 +62,45 @@ function deleteSticker() {
 }
 
 function saveProject() {
-  console.log('Project saved');
+
+  // for (let i = 0; i < canvas.getObjects().length; i++) {
+  //   const newImg = canvas.item(i);
+  //   console.log(newImg);
+  // }
+
+  // Data is ready
+  const imagesArray = canvas.getObjects();
+  const projectTitle = $('#projectTitle').val();
+  const canWidth = canvas.getWidth();
+  const canHeight = canvas.getHeight();
+
+  // AJAX call
+  // $.post('/create',
+  // {
+  //   title: projectTitle,
+  //   images: imagesArray,
+  //   canvasWidth: canWidth,
+  //   canvasHeight: canHeight
+  // },
+  // function(data, status) {
+  //   alert('Data: ' + data + '\nStatus: ' + status);
+  // });
+
+  var data = {};
+  data.title = projectTitle;
+  data.images = imagesArray;
+  data.canvasWidth = canWidth;
+  data.canvasHeight = canHeight;
+
+  $.ajax({
+    type: 'POST',
+    data: data,
+    url: '/projects'
+  })
+  .done(data => {
+    console.log(data);
+  })
+  .fail(data => {
+    console.log(data);
+  });
 }

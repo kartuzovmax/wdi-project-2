@@ -1,12 +1,80 @@
+$mainFont: 'Comfortaa', cursive;
+$mainColor: #48d8a0;
+
 body {
   font-family: sans-serif;
-  background: white;
+  background-color: #404446;
 }
 
+h1 {
+  font-family: $mainFont;
+  color: $mainColor;
+}
+
+h3 {
+  font-family: $mainFont;
+  color: $mainColor;
+}
+
+p {
+  font-family: $mainFont;
+  color: $mainColor;
+}
 canvas {
-  // background: grey;
+  border-radius: 5px;
+}
+.canvas-container {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 400px;
+}
+
+
+button {
+  margin: 0 auto;
+  display: block;
 }
 
 input {
+  margin: 0 auto;
   display: block;
+}
+
+.navbar  {
+  //background-color: black;
+  .navbar-brand {
+    color: white;
+    font-family: $mainFont;
+  }
+  .nav-link {
+    color: #676e71;
+    font-family: $mainFont;
+  }
+  .nav-link:hover {
+    color: white;
+  }
+
+}
+
+.editArea {
+  text-align:center;
+  background-color:blue;
+  height:600px;
+  width:600px;
+}
+
+#projectTitle {
+  border: 0px;
+}
+
+#projectTitle:focus {
+  outline: none;
+}
+
+.profilePicture {
+  width:200px;
+  border-radius: 50%;
 }
