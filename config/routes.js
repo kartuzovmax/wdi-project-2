@@ -43,4 +43,7 @@ router.route('/logout')
 router.route('/projects')
       .post(projects.create);
 
+router.route('/projects/:id')
+      .delete(projects.delete);
+
 module.exports = router;

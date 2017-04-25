@@ -69,26 +69,14 @@ function saveProject() {
   // }
 
   // Data is ready
-  const imagesArray = canvas.getObjects();
+  const imagesObject = canvas.toJSON();
   const projectTitle = $('#projectTitle').val();
   const canWidth = canvas.getWidth();
   const canHeight = canvas.getHeight();
 
-  // AJAX call
-  // $.post('/create',
-  // {
-  //   title: projectTitle,
-  //   images: imagesArray,
-  //   canvasWidth: canWidth,
-  //   canvasHeight: canHeight
-  // },
-  // function(data, status) {
-  //   alert('Data: ' + data + '\nStatus: ' + status);
-  // });
-
   var data = {};
   data.title = projectTitle;
-  data.images = imagesArray;
+  data.canvasObject = imagesObject;
   data.canvasWidth = canWidth;
   data.canvasHeight = canHeight;
 
@@ -103,4 +91,5 @@ function saveProject() {
   .fail(data => {
     console.log(data);
   });
+
 }

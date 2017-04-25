@@ -6,7 +6,7 @@ function projectCreate(req,res) {
 
   project.save()
   .then((project) => {
-    req.flash('info', `Project created: ${project.title}, ${project.canvasHeight}, ${project.canvasWidth}, ${project.images}!`);
+    req.flash('info', `Project created: ${project.title}, ${project.canvasHeight}, ${project.canvasWidth}, ${project.canvasObject}!`);
     res.locals.currentUser.projects.addToSet(project);
     return res.locals.currentUser.save();
   })
@@ -18,6 +18,24 @@ function projectCreate(req,res) {
   });
 }
 
+function projectDelete(req,res, next) {
+
+  Project
+  .findById(req.params.id)
+  .then((project) => {
+    if (!project) {
+      const err = new Error('Project not found');
+      err.status = 404;
+      throw err;
+    }
+
+    return project.remove();
+  })
+  .then(() => res.redirect('/statics/user'))
+  .catch(next);
+}
+
 module.exports = {
-  create: projectCreate
+  create: projectCreate,
+  delete: projectDelete
 };

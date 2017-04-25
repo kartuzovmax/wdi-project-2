@@ -32,6 +32,9 @@ canvas {
   width: 400px;
 }
 
+ul {
+  list-style:none;
+}
 
 button {
   margin: 0 auto;
@@ -39,8 +42,9 @@ button {
 }
 
 input {
-  margin: 0 auto;
+  margin: 30px auto 10px;
   display: block;
+  width: 65%;
 }
 
 .navbar  {
@@ -62,6 +66,10 @@ input {
 .editArea {
   text-align:center;
   background-color:blue;
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   height:600px;
   width:600px;
 }

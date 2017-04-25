@@ -1,10 +1,19 @@
 <% if (locals.isLoggedIn) { %>
   <img class="profilePicture" src="<%= currentUser.profilePic %>" alt="">
-  <h1><%=currentUser.username%></h1>
+  <h1 id="head" data-user-name="<%= currentUser.username %>"
+  data-user-projects="<%= currentUser.projects%>"><%=currentUser.username%></h1>
   <h3><%=currentUser.email%></h3>
   <ul>
     <% currentUser.projects.forEach(project => { %>
-      <li><a href="/projects/<%= project._id %>"><%= project.title %></a></li>
+      <li>
+        <a href="/projects/<%= project._id %>"><%= project.title %></a>
+        <p><%= JSON.stringify(project.canvasObject) %></p>
+        <canvas id="canvas" width="400" height="400" data-canvas-json="<%= JSON.stringify(project.canvasObject) %>"></canvas>
+        <form method="POST" action="/projects/<%= project.id %>">
+          <input type="hidden" name="_method" value="DELETE">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </li>
     <% }) %>
   </ul>
   <a class="nav-link" href="/logout">Logout</a>
