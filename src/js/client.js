@@ -5,7 +5,6 @@ console.log('hello world');
 $(init);
 
 var canvas;
-var stickersArray = [{}];
 
 function init() {
 
@@ -63,6 +62,7 @@ function convertToImage() {
 
 function selectSticker() {
   console.log('Selected sticker!');
+
 }
 
 function deleteSticker() {
@@ -72,12 +72,4 @@ function deleteSticker() {
 
 function saveProject() {
   console.log('Project saved');
-}
-
-function addStickerToArray(url) {
-  const newSticker = {
-    imgLink: url,
-    index: stickersArray.length
-  }
-  stickersArray.push(newSticker);
 }
