@@ -2,20 +2,38 @@
 
 $(init);
 
+let canvas;
+let j;
 function init() {
 
-  const $userName = $('#head').attr('data-user-name');
-  const $userProjects = $('#head').attr('data-user-projects');
-  console.log(`USERNAME IS ${$userName}, AND PROJECTS ARE ${$userProjects}`);
-  const $objectsArr = $userProjects.split(',');
-  console.log(`ObjectsArr length is ${$objectsArr.length}`);
-  const canvasJson = $('canvas').attr('data-canvas-json');
-  const canvas = new fabric.Canvas('canvas', {
+  $('canvas').click(setBackgroundToCanvas);
+
+  const canvasJson = $('#canvasid').attr('data-canvas-json');
+  j = JSON.parse(canvasJson);
+
+  canvas = new fabric.Canvas('canvasid', {
     backgroundSize: 'cover'
   });
-  canvas.loadFromJSON(canvasJson, function() {
+
+  canvas.loadFromJSON(j, function() {
     canvas.renderAll.bind(canvas);
+    setTimeout(function(){
+      canvas.renderAll.bind(canvas);
+    }, 1);
   });
+}
+
+function setBackgroundToCanvas() {
+
+  var bgImage = new Image();
+  bgImage.onload = function() {
+    var fabricImage = new fabric.Image(bgImage);
+    canvas.setBackgroundImage(fabricImage);
+    canvas.backgroundImage.width = canvas.getWidth();
+    canvas.backgroundImage.height = canvas.getHeight();
+    canvas.renderAll();
+  };
+  bgImage.src = 'images/defaultBg.jpg';
 }
 
 // canvas.loadFromJSON(json, function() {
