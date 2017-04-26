@@ -20,6 +20,7 @@ function projectsCreate(req,res) {
 }
 
 function projectsShow(req, res, next) {
+  console.log('hello');
   Project
     .findById(req.params.id)
     .exec()
@@ -34,8 +35,10 @@ function projectsShow(req, res, next) {
       }
 
       if (res.locals.currentUser._id.toString() === project.user.toString()) {
+        console.log('Got access to projects/edit');
         res.render('projects/edit', { project });
       } else {
+        console.log('Got access to projects/show');
         res.render('projects/show', { project });
       }
     })
@@ -78,7 +81,7 @@ function projectsDelete(req,res, next) {
   .catch(next);
 }
 
-function projectsNew(req,res, next) {
+function projectsNew(req,res) {
   return res.render('projects/new');
 }
 
@@ -86,5 +89,6 @@ module.exports = {
   create: projectsCreate,
   show: projectsShow,
   delete: projectsDelete,
-  new: projectsNew
+  new: projectsNew,
+  showAPI: projectsShowApi
 };

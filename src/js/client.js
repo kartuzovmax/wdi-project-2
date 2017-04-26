@@ -3,6 +3,7 @@
 $(init);
 
 var canvas;
+var $buttonsPanel, $toolsPanel;
 
 function init() {
 
@@ -11,9 +12,15 @@ function init() {
   $('#saveButton').click(convertToImage);
   $('#saveProjectButton').click(saveProject);
   $('#deleteStickerButton').click(deleteSticker);
+  $('#layerDownButton').click(layerDown);
+  $('#layerUpButton').click(layerUp);
 
   // Creating a canvas using Fabric.js
   loadCanvas();
+  $buttonsPanel = $('.buttonsPanel');
+  $toolsPanel = $('.toolsPanel');
+
+  $toolsPanel.toggle();
 }
 
 function loadCanvas() {
@@ -30,9 +37,16 @@ function loadCanvas() {
     canvas.setBackgroundImage(fabricImage);
     canvas.backgroundImage.width = canvas.getWidth();
     canvas.backgroundImage.height = canvas.getHeight();
+
+    // Customizing selector
+    canvas.selectionColor = 'rgba(72,216,160,0.3)';
+    canvas.selectionBorderColor = 'rgba(72,216,160,1.0)';
+    canvas.selectionLineWidth = 5;
+
     canvas.renderAll();
   };
   bgImage.src = '/../images/defaultBg.jpg';
+
 }
 
 function addStickerToCanvas() {
@@ -41,8 +55,16 @@ function addStickerToCanvas() {
     $(oImg).attr('crossOrigin', 'Anonymous');
     //addStickerToArray($('#bgSearch').val()); // adding sticker to the array
     $('#bgSearch').val(''); // clearing the text field
+
     oImg.on('selected', selectSticker);
+    oImg.on('deselected', deselectSticker);
     canvas.add(oImg);
+    oImg.set({
+      borderColor: '#48d8a0',
+      cornerColor: '#48d8a0',
+      cornerSize: 12,
+      transparentCorners: false
+    });
     canvas.renderAll();
   },{crossOrigin: 'Anonymous'});
 }
@@ -54,20 +76,29 @@ function convertToImage() {
 
 function selectSticker() {
   console.log('Selected sticker!');
+  $buttonsPanel.toggle();
+  $toolsPanel.toggle();
+}
 
+function deselectSticker() {
+  console.log('Deselect sticker!');
+  $buttonsPanel.toggle();
+  $toolsPanel.toggle();
 }
 
 function deleteSticker() {
   console.log('Delete sticker: ' + canvas.getActiveObject());
   canvas.getActiveObject().remove();
 }
-
+function layerUp() {
+  canvas.bringForward(canvas.getActiveObject());
+  canvas.renderAll();
+}
+function layerDown() {
+  canvas.sendBackwards(canvas.getActiveObject());
+  canvas.renderAll();
+}
 function saveProject() {
-
-  // for (let i = 0; i < canvas.getObjects().length; i++) {
-  //   const newImg = canvas.item(i);
-  //   console.log(newImg);
-  // }
 
   // Data is ready
   const imagesObject = JSON.stringify(canvas.toJSON());
