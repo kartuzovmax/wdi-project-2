@@ -44,6 +44,7 @@ router.route('/projects')
       .post(projects.create);
 
 router.route('/projects/:id')
+      .get(projects.show)
       .delete(projects.delete);
 
 module.exports = router;

@@ -4,24 +4,32 @@ $(init);
 
 let canvas;
 let j, projectsData;
+
 function init() {
 
-  const canvasJson = $('#canvasid').attr('data-canvas-json');
   projectsData = $('#head').attr('data-user-projects');
 
-  j = JSON.parse(canvasJson);
   console.log(projectsData);
 
-  canvas = new fabric.Canvas('canvasid', {
-    backgroundSize: 'cover'
-  });
+  $('.thumbnailCanvas').each(function(i, obj) {
+    //test
+    const uniqID = `#canvas${i}`;
+    $(obj).attr('id',uniqID);
+    const canvasJson = $(obj).attr('data-canvas-json');
+    j = JSON.parse(canvasJson);
+    console.log('CANVAS ' + i);
 
-  canvas.loadFromJSON(j, function() {
-    canvas.renderAll.bind(canvas);
-    canvas.deactivateAll();
-    canvas.renderAll();
-    canvas.forEachObject(function(object){
-      object.selectable = false;
+    canvas = new fabric.Canvas(uniqID, {
+      backgroundSize: 'cover'
+    });
+
+    canvas.loadFromJSON(j, function() {
+      canvas.renderAll.bind(canvas);
+      canvas.deactivateAll();
+      canvas.renderAll();
+      canvas.forEachObject(function(object){
+        object.selectable = false;
+      });
     });
   });
 }

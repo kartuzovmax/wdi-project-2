@@ -1,6 +1,8 @@
 const Project = require('../models/project');
 
+
 function projectCreate(req,res) {
+
   console.log('Project Create called');
   const project = new Project(req.body);
 
@@ -18,6 +20,24 @@ function projectCreate(req,res) {
   });
 }
 
+function projectShow(req, res, next) {
+  Project
+    .findById(req.params.id)
+    .exec()
+    .then(project => {
+      /*
+        Create an error to pass to the generic error handler
+      */
+      if (!project) {
+        const err = new Error('Project not found');
+        err.status = 404;
+        throw err;
+      }
+      res.render('/statics/home', { project });
+    })
+    .catch(next);
+}
+
 function projectDelete(req,res, next) {
 
   Project
@@ -31,11 +51,12 @@ function projectDelete(req,res, next) {
 
     return project.remove();
   })
-  .then(() => res.redirect('statics/user'))
+  .then(() => res.redirect('/statics/user'))
   .catch(next);
 }
 
 module.exports = {
   create: projectCreate,
+  show: projectShow,
   delete: projectDelete
 };

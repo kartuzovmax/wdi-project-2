@@ -6,6 +6,7 @@ var canvas;
 
 function init() {
 
+
   $('#addStickerButton').click(addStickerToCanvas);
   $('#saveButton').click(convertToImage);
   $('#saveProjectButton').click(saveProject);
@@ -93,3 +94,11 @@ function saveProject() {
   });
 
 }
+
+
+// <% if(project) { %>
+//
+//   console.log('Project is ' + project._id);
+//   <h1>ya</h1>
+//
+// <% } else { %>
