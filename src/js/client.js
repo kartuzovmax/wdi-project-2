@@ -69,7 +69,8 @@ function saveProject() {
   // }
 
   // Data is ready
-  const imagesObject = canvas.toJSON();
+  const imagesObject = JSON.stringify(canvas.toJSON());
+  console.log(imagesObject);
   const projectTitle = $('#projectTitle').val();
   const canWidth = canvas.getWidth();
   const canHeight = canvas.getHeight();
@@ -86,10 +87,10 @@ function saveProject() {
     url: '/projects'
   })
   .done(data => {
-    console.log(data);
+    //console.log(data);
   })
   .fail(data => {
-    console.log(data);
+    //console.log(data);
   });
 
 }

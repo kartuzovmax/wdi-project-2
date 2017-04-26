@@ -10,6 +10,7 @@ function init() {
 
   const canvasJson = $('#canvasid').attr('data-canvas-json');
   j = JSON.parse(canvasJson);
+  console.log(j);
 
   canvas = new fabric.Canvas('canvasid', {
     backgroundSize: 'cover'
