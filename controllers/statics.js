@@ -1,52 +1,25 @@
-const Static = require('../models/static');
-
 function staticHome(req, res) {
-  Static
-    .find()
-    .exec()
-    .then(statics => {
-      return res.render('statics/home', { statics });
-    })
-    .catch(err => {
-      return res.render('error', { error: err });
-    });
+  return res.render('statics/home');
 }
 
 function staticGallery(req, res) {
-  Static
-    .find()
-    .exec()
-    .then(statics => {
-      return res.render('statics/gallery', { statics });
-    })
-    .catch(err => {
-      return res.render('error', { error: err });
-    });
+  return res.render('statics/gallery');
 }
 
 function staticAbout(req, res) {
-  Static
-    .find()
-    .exec()
-    .then(statics => {
-      return res.render('statics/about', { statics });
-    })
-    .catch(err => {
-      return res.render('error', { error: err });
-    });
+  return res.render('statics/about');
 }
 
 function staticUser(req, res) {
-  Static
-    .find()
-    .exec()
-    .then(statics => {
-      return res.render('statics/user', { statics });
-    })
-    .catch(err => {
-      return res.render('error', { error: err });
-    });
+  return res.render('statics/user');
 }
+
+module.exports = {
+  static: staticHome,
+  gallery: staticGallery,
+  about: staticAbout,
+  user: staticUser
+};
 
 //
 // function videosShow(req, res) {
@@ -132,10 +105,3 @@ function staticUser(req, res) {
 //       return res.render('error', { error: err });
 //     });
 // }
-
-module.exports = {
-  static: staticHome,
-  gallery: staticGallery,
-  about: staticAbout,
-  user: staticUser
-};

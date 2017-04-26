@@ -3,14 +3,14 @@
 $(init);
 
 let canvas;
-let j;
+let j, projectsData;
 function init() {
 
-  $('canvas').click(setBackgroundToCanvas);
-
   const canvasJson = $('#canvasid').attr('data-canvas-json');
+  projectsData = $('#head').attr('data-user-projects');
+
   j = JSON.parse(canvasJson);
-  console.log(j);
+  console.log(projectsData);
 
   canvas = new fabric.Canvas('canvasid', {
     backgroundSize: 'cover'
@@ -18,24 +18,15 @@ function init() {
 
   canvas.loadFromJSON(j, function() {
     canvas.renderAll.bind(canvas);
-    setTimeout(function(){
-      canvas.renderAll.bind(canvas);
-    }, 1);
+    canvas.deactivateAll();
+    canvas.renderAll();
+    canvas.forEachObject(function(object){
+      object.selectable = false;
+    });
   });
 }
 
-function setBackgroundToCanvas() {
 
-  var bgImage = new Image();
-  bgImage.onload = function() {
-    var fabricImage = new fabric.Image(bgImage);
-    canvas.setBackgroundImage(fabricImage);
-    canvas.backgroundImage.width = canvas.getWidth();
-    canvas.backgroundImage.height = canvas.getHeight();
-    canvas.renderAll();
-  };
-  bgImage.src = 'images/defaultBg.jpg';
-}
 
 // canvas.loadFromJSON(json, function() {
 //     canvas.renderAll();

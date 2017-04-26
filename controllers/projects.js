@@ -31,7 +31,7 @@ function projectDelete(req,res, next) {
 
     return project.remove();
   })
-  .then(() => res.redirect('/statics/user'))
+  .then(() => res.redirect('statics/user'))
   .catch(next);
 }
 

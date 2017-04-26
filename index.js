@@ -46,7 +46,7 @@ app.use((req, res, next) => {
   .then((user) => {
     if(!user) {
       return req.session.regenerate(() => {
-        res.redirect('/');
+        res.redirect('statics/user');
       });
     }
 

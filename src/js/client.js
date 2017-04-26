@@ -17,7 +17,7 @@ function init() {
 
 function loadCanvas() {
 
-  canvas = new fabric.Canvas('canvas', {
+  canvas = new fabric.Canvas('mainCanvas', {
     backgroundSize: 'cover'
   });
 
@@ -70,7 +70,6 @@ function saveProject() {
 
   // Data is ready
   const imagesObject = JSON.stringify(canvas.toJSON());
-  console.log(imagesObject);
   const projectTitle = $('#projectTitle').val();
   const canWidth = canvas.getWidth();
   const canHeight = canvas.getHeight();
@@ -87,10 +86,10 @@ function saveProject() {
     url: '/projects'
   })
   .done(data => {
-    //console.log(data);
+    console.log(data);
   })
   .fail(data => {
-    //console.log(data);
+    console.log(data);
   });
 
 }
