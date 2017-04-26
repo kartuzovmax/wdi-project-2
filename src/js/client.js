@@ -111,7 +111,7 @@ function saveProject() {
 
   // Data is ready
   const imagesObject = JSON.stringify(canvas.toJSON());
-  const projectTitle = $('#projectTitle').val();
+  const projectTitle = $('#projectTitleInput').val();
   const canWidth = canvas.getWidth();
   const canHeight = canvas.getHeight();
 
@@ -120,6 +120,8 @@ function saveProject() {
   data.canvasObject = imagesObject;
   data.canvasWidth = canWidth;
   data.canvasHeight = canHeight;
+
+  console.log(`{Trying to save data: ${data}}`);
 
   $.ajax({
     type: 'POST',

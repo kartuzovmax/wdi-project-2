@@ -2,6 +2,8 @@ const Project = require('../models/project');
 
 
 function projectsCreate(req,res) {
+
+  console.log('Creating new project to mongo...');
   const project = new Project(req.body);
   project.user = res.locals.currentUser._id;
 
@@ -77,7 +79,7 @@ function projectsDelete(req,res, next) {
 
     return project.remove();
   })
-  .then(() => res.redirect('/statics/user'))
+  .then(() => res.redirect('/user'))
   .catch(next);
 }
 

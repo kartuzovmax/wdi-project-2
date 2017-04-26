@@ -2,7 +2,7 @@
   <img class="profilePicture" src="<%= currentUser.profilePic %>" alt="">
   <h1 id="head" data-user-name="<%= currentUser.username %>"
   data-user-projects="<%= currentUser.projects%>"><%=currentUser.username%></h1>
-  <h3><%=currentUser.email%></h3>
+  <h5><%=currentUser.email%></h5>
   <ul>
     <% currentUser.projects.forEach(project => { %>
       <li>
@@ -18,7 +18,7 @@
   <a class="nav-link" href="/logout">Logout</a>
   <% } else { %>
     <h1>User Profile</h1>
-    <h3>You are not Logged In </h1>
+    <h5>You are not Logged In </h5>
     <a class="nav-link" href="/login">Log In</a>
     <a class="nav-link" href="/register">Register</a>
   <% } %>
