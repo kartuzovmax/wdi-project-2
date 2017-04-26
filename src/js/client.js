@@ -14,6 +14,7 @@ function init() {
   $('#deleteStickerButton').click(deleteSticker);
   $('#layerDownButton').click(layerDown);
   $('#layerUpButton').click(layerUp);
+  $('#cloneButton').click(cloneSticker);
 
   // Creating a canvas using Fabric.js
   loadCanvas();
@@ -41,7 +42,7 @@ function loadCanvas() {
     // Customizing selector
     canvas.selectionColor = 'rgba(72,216,160,0.3)';
     canvas.selectionBorderColor = 'rgba(72,216,160,1.0)';
-    canvas.selectionLineWidth = 5;
+    canvas.selectionLineWidth = 2.5;
 
     canvas.renderAll();
   };
@@ -98,6 +99,14 @@ function layerDown() {
   canvas.sendBackwards(canvas.getActiveObject());
   canvas.renderAll();
 }
+
+function cloneSticker() {
+  var object = fabric.util.object.clone(canvas.getActiveObject());
+  object.set('top', object.top+20);
+  object.set('left', object.left+20);
+  canvas.add(object);
+}
+
 function saveProject() {
 
   // Data is ready
