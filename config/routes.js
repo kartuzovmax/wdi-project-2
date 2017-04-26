@@ -8,6 +8,8 @@ const statics       = require('../controllers/statics');
 const registrations = require('../controllers/registrations');
 const sessions      = require('../controllers/sessions');
 const projects      = require('../controllers/projects');
+const galleries     = require('../controllers/galleries');
+const users         = require('../controllers/users');
 
 // function secureRoute(req, res, next) {
 //   if (!req.session.userId) {
@@ -19,15 +21,24 @@ const projects      = require('../controllers/projects');
 //   return next();
 // }
 
-
-router.route('/statics/gallery')
-      .get(statics.gallery);
-router.route('/statics/about')
-      .get(statics.about);
-router.route('/statics/home')
+router.route('/')
       .get(statics.static);
-router.route('/statics/user')
-      .get(statics.user);
+router.route('/about')
+      .get(statics.about);
+
+router.route('/galleries')
+      .get(galleries.index);
+
+router.route('/users/:id')
+      .get(users.show);
+
+router.route('/projects')
+      .post(projects.create);
+router.route('/projects/new')
+      .get(projects.new);
+router.route('/projects/:id')
+      .get(projects.show)
+      .delete(projects.delete);
 
 router.route('/register')
       .get(registrations.new)
@@ -39,12 +50,5 @@ router.route('/login')
 
 router.route('/logout')
       .get(sessions.delete);
-
-router.route('/projects')
-      .post(projects.create);
-
-router.route('/projects/:id')
-      .get(projects.show)
-      .delete(projects.delete);
 
 module.exports = router;

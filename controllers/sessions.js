@@ -14,7 +14,7 @@ function sessionsCreate(req, res) {
 
       req.session.userId = user.id;
 
-      return res.redirect('statics/user');
+      return res.redirect(`/users/${user.id}`);
     });
 }
 

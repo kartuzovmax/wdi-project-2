@@ -32,7 +32,7 @@ function loadCanvas() {
     canvas.backgroundImage.height = canvas.getHeight();
     canvas.renderAll();
   };
-  bgImage.src = 'images/defaultBg.jpg';
+  bgImage.src = '/../images/defaultBg.jpg';
 }
 
 function addStickerToCanvas() {
@@ -87,10 +87,10 @@ function saveProject() {
     url: '/projects'
   })
   .done(data => {
-    console.log(data);
+    console.log('SUCCESS', data);
   })
   .fail(data => {
-    console.log(data);
+    console.log('Fail', data);
   });
 
 }
