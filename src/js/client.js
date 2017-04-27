@@ -68,6 +68,7 @@ function loadCanvas() {
 
         canvas.item(i).on('selected', selectSticker);
         canvas.item(i).on('deselected', deselectSticker);
+        $(canvas.item(i)).attr('crossOrigin', 'Anonymous');
         canvas.item(i).set({
           borderColor: '#48d8a0',
           cornerColor: '#48d8a0',

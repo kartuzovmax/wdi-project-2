@@ -2,7 +2,7 @@
 
 $(init);
 
-let canvas;
+//let canvas;
 let j, projectsData;
 
 function init() {
@@ -10,6 +10,7 @@ function init() {
   if(!$('.profilePicture')) return;
 
   projectsData = $('#head').attr('data-user-projects');
+  $('.downloadLink').on('click', download);
 
   console.log(projectsData);
 
@@ -21,16 +22,29 @@ function init() {
     j = JSON.parse(canvasJson);
     console.log('CANVAS ' + i);
 
-    canvas = new fabric.StaticCanvas(uniqID, {
+    const canvas = new fabric.StaticCanvas(uniqID, {
       backgroundSize: 'cover'
     });
 
     canvas.loadFromJSON(j, function() {
       canvas.renderAll.bind(canvas);
     });
+
   });
 }
 
+function download() {
+  console.log($(this).attr('data-project-canvas'));
+  // canvas.deactivateAll().renderAll();
+  const canvas = new fabric.StaticCanvas('canvas', {
+
+  });
+
+  canvas.loadFromJSON($(this).attr('data-project-canvas'), function() {
+    canvas.renderAll.bind(canvas);
+    window.open(canvas.toDataURL('png'));
+  });
+}
 
 
 // canvas.loadFromJSON(json, function() {

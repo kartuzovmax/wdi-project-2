@@ -8,16 +8,21 @@
     </div>
   </div>
 
+  <% if (currentUser.projects.length === 0) { %>
+    <h1 class="noProjectsLabel"> You have not made any projects yet 😢</h1>
+    <h3 class="noProjectsSubLabel"> (you lazy ass)</h3>
+  <% } %>
+
   <ul>
     <% currentUser.projects.forEach(project => { %>
       <li>
         <div class="thumbnailContainer">
           <a class="thumbnailLink" href="/projects/<%= project.id %>"><%= project.title %></a>
           <canvas class="thumbnailCanvas" id="canvasid" width="400" height="400" data-canvas-json="<%= JSON.stringify(project.canvasObject) %>"></canvas>
-          <button class="greenRoundButton">DOWNLOAD</button>
+          <button class="downloadLink" data-project-canvas="<%= JSON.stringify(project.canvasObject) %>">DOWNLOAD</button>
           <form method="POST" action="/projects/<%= project.id %>">
             <input type="hidden" name="_method" value="DELETE">
-            <button class="redRoundButton">DELETE</button>
+            <button class="deleteLink">DELETE</button>
           </form>
         </div>
       </li>

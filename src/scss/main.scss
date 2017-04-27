@@ -29,8 +29,60 @@ p {
   color: $mainColor;
 }
 
+.center {
+    text-align:center;
+    text-decoration: none;
+
+}
+
+.form-group {
+
+    display:block;
+    text-align:center;
+    background-color: white;
+    width: 400px;
+    border-radius: 5px;
+    margin: 70px auto;
+    padding: 15px;
+
+    h3 {
+      display: block;
+      margin-top: 30px auto;
+      font-family: $mainFont;
+      color: $greenColor;
+    }
+
+    input {
+      margin: 5px auto;
+      font-family: $mainFont;
+      color: $greenColor;
+      padding: 5px;
+      width: 300px;
+    }
+
+    .btn-primary {
+      margin: 15px auto 5px auto;
+      background-color: $greenColor;
+      border: none;
+    }
+}
+
 canvas {
   border-radius: 5px;
+}
+
+.noProjectsLabel {
+  width: 100%;
+  text-align: center;
+  margin: 30px auto;
+}
+
+.noProjectsSubLabel {
+  width: 100%;
+  text-align: center;
+  margin: 30px auto;
+  color: #3a404d;
+  font-family: $mainFont;
 }
 
 .canvas-container {
@@ -79,6 +131,11 @@ input {
     font-family: $mainFont;
     width: 300px;
   }
+
+  .navbar-brand:hover {
+    color: $greenColor;
+  }
+
   .nav-item {
     height: 100%;
     border-radius: 35px;
@@ -103,6 +160,48 @@ input {
     background-color: $greenColor;
     color:white;
   }
+}
+
+
+.welcomeBox {
+  display:block;
+  text-align:center;
+  background-color: white;
+  width: 700px;
+  border-radius: 7px;
+  margin: 70px auto;
+  padding: 25px;
+
+  span {
+    color: $greenColor;
+  }
+
+  h5 {
+    font-family: $mainFont;
+    color: #a8bbbc;
+  }
+
+  li {
+    color: $greyColor;
+    font-family: $mainFont;
+  }
+  .createProjectLink {
+    background-color: $greenColor;
+    color:white;
+    font-family: $mainFont;
+    font-size: 15px;
+    height: 100%;
+    border-radius: 35px;
+    border: 0;
+    padding: 10px;
+    text-decoration: none;
+  }
+  .createProjectLink:hover {
+    background-color: $lightGreenColor;
+    color:white;
+    text-decoration: none;
+  }
+
 }
 
 .redRoundButton {
@@ -166,20 +265,10 @@ input {
   // margin-right: auto;
   // margin-top: 45px;
   // margin-bottom: 45px;
-  margin: 45px 100px;
+  margin: 20px 100px;
   float: left;
 }
 
-.thumbnailLink {
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-family: $mainFont;
-  color: $greenColor;
-  display: block;
-}
-.thumbnailLink:hover {
-  color: white;
-}
 
 .jumbotron {
   //background-image: url('https://3f0861b6bc98c08770be-789248f0448453b835406008213ad4a2.ssl.cf2.rackcdn.com/cover_photo_682812_1460367762.png');
@@ -215,36 +304,64 @@ input {
 }
 
 .thumbnailLink {
+
   margin-bottom: 10px;
   font-size: 20px;
   font-family: $mainFont;
   color: $greenColor;
   display: block;
+  text-decoration: none;
 }
 .thumbnailLink:hover {
   color: white;
+  text-decoration: none;
 }
 
 .downloadLink {
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-family: $mainFont;
+  border: 0;
+  background: none;
+  box-shadow:none;
+  background-color: transparent;
+  padding: 5px 10px;
+  margin: 10px 3px;
+  float: left;
   color: $greyColor;
-  display: inline;
+  font-size: 12px;
+  font-family: $mainFont;
+  transition: all .15s ease-in-out;
 }
+
 .downloadLink:hover {
   color: $greenColor;
+  transform: scale(1.1);
+}
+.downloadLink:focus {
+  outline: 0;
 }
 
 .deleteLink {
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-family: $mainFont;
+
+  border: 0;
+  background: none;
+  box-shadow:none;
+  background-color: transparent;
+  padding: 5px 10px;
+  margin: 10px 3px;
   color: $greyColor;
-  display: inline;
+  font-size: 12px;
+  font-family: $mainFont;
+  transition: all .15s ease-in-out;
+  float: left;
+
 }
+
 .deleteLink:hover {
-  color: redColor;
+  color: $redColor;
+  transform: scale(1.1);
+}
+
+.deleteLink:focus {
+  outline: 0;
 }
 
 #head {
