@@ -9,7 +9,10 @@ let isEditingMode;
 
 function init() {
 
+  if(!$('.editArea')) return;
+
   $('#addStickerButton').click(addStickerToCanvas);
+  $('#addBackgroundButton').click(setBackgroundForCanvas);
   $('#saveButton').click(convertToImage);
   $('#saveProjectButton').click(saveProject);
   $('#saveChangesButton').click(saveChanges);
@@ -101,11 +104,6 @@ function loadCanvas() {
       canvas.backgroundImage.width = canvas.getWidth();
       canvas.backgroundImage.height = canvas.getHeight();
 
-      // Customizing selector
-      canvas.selectionColor = 'rgba(72,216,160,0.3)';
-      canvas.selectionBorderColor = 'rgba(72,216,160,1.0)';
-      canvas.selectionLineWidth = 2.5;
-
       canvas.renderAll();
     };
     bgImage.src = '/../images/defaultBg.jpg';
@@ -113,7 +111,23 @@ function loadCanvas() {
   canvas.preserveObjectStacking = true;
 }
 
+function setBackgroundForCanvas() {
 
+  const bgPath = prompt('Image URL: ');
+  var bgImage = new Image();
+  bgImage.setAttribute('crossOrigin', 'Anonymous');
+  bgImage.onload = function() {
+
+    // this is syncronous
+    var fabricImage = new fabric.Image(bgImage);
+    canvas.setBackgroundImage(fabricImage);
+    canvas.backgroundImage.width = canvas.getWidth();
+    canvas.backgroundImage.height = canvas.getHeight();
+
+    canvas.renderAll();
+  };
+  bgImage.src = bgPath;
+}
 
 function addStickerToCanvas() {
 

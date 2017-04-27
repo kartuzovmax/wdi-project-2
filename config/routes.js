@@ -11,15 +11,15 @@ const projects      = require('../controllers/projects');
 const galleries     = require('../controllers/galleries');
 const users         = require('../controllers/users');
 
-// function secureRoute(req, res, next) {
-//   if (!req.session.userId) {
-//     return req.session.regenerate(() => {
-//       req.flash('danger', 'You must be logged in.');
-//       res.redirect('/login');
-//     });
-//   }
-//   return next();
-// }
+function secureRoute(req, res, next) {
+  if (!req.session.userId) {
+    return req.session.regenerate(() => {
+      req.flash('danger', 'You must be logged in.');
+      res.redirect('/login');
+    });
+  }
+  return next();
+}
 
 router.route('/')
       .get(statics.static);
@@ -33,15 +33,15 @@ router.route('/users/:id')
       .get(users.show);
 
 router.route('/projects')
-      .post(projects.create);
+      .post(secureRoute,projects.create);
 
 router.route('/projects/new')
-      .get(projects.new);
+      .get(secureRoute, projects.new);
 
 router.route('/projects/:id')
-      .get(projects.show)
-      .put(projects.update)
-      .delete(projects.delete);
+      .get(secureRoute, projects.show)
+      .put(secureRoute, projects.update)
+      .delete(secureRoute, projects.delete);
 
 router.route('/register')
       .get(registrations.new)

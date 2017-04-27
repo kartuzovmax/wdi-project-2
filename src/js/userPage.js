@@ -7,6 +7,8 @@ let j, projectsData;
 
 function init() {
 
+  if(!$('.profilePicture')) return;
+
   projectsData = $('#head').attr('data-user-projects');
 
   console.log(projectsData);
