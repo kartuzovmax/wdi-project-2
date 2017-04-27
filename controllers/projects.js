@@ -66,6 +66,21 @@ function projectsShowApi(req, res, next) {
     .catch(next);
 }
 
+function projectsEdit(req, res, next) {
+  Project
+    .findById(req.params.id)
+    .then((project) => {
+      if (!project) {
+        const err = new Error('Film not found');
+        err.status = 404;
+        throw err;
+      }
+
+      res.render('projects/edit', { project });
+    })
+    .catch(next);
+}
+
 function projectsDelete(req,res, next) {
 
   Project
@@ -79,7 +94,7 @@ function projectsDelete(req,res, next) {
 
     return project.remove();
   })
-  .then(() => res.redirect('/user'))
+  .then(() => res.redirect('/users/:id'))
   .catch(next);
 }
 
@@ -90,6 +105,7 @@ function projectsNew(req,res) {
 module.exports = {
   create: projectsCreate,
   show: projectsShow,
+  edit: projectsEdit,
   delete: projectsDelete,
   new: projectsNew,
   showAPI: projectsShowApi

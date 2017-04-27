@@ -1,9 +1,10 @@
-/* globals fabric  */
+/* globals fabric swal  */
 
 $(init);
 
 var canvas;
 var $buttonsPanel, $toolsPanel;
+let j, projectsData;
 
 function init() {
 
@@ -11,6 +12,7 @@ function init() {
   $('#addStickerButton').click(addStickerToCanvas);
   $('#saveButton').click(convertToImage);
   $('#saveProjectButton').click(saveProject);
+  $('#saveChangesButton').click(saveChanges);
   $('#deleteStickerButton').click(deleteSticker);
   $('#layerDownButton').click(layerDown);
   $('#layerUpButton').click(layerUp);
@@ -26,27 +28,51 @@ function init() {
 
 function loadCanvas() {
 
-  canvas = new fabric.Canvas('mainCanvas', {
-    backgroundSize: 'cover'
-  });
+  // Checking if we need to load a canvas or just create a new one
+  if (document.getElementById('editHeader')) {
 
-  var bgImage = new Image();
-  bgImage.setAttribute('crossOrigin', 'Anonymous');
-  bgImage.onload = function() {
-    // this is syncronous
-    var fabricImage = new fabric.Image(bgImage);
-    canvas.setBackgroundImage(fabricImage);
-    canvas.backgroundImage.width = canvas.getWidth();
-    canvas.backgroundImage.height = canvas.getHeight();
+    // Project already exists
+    projectsData = $('#editHeader').attr('data-project-canvas');
+    j = JSON.parse(projectsData);
 
-    // Customizing selector
-    canvas.selectionColor = 'rgba(72,216,160,0.3)';
-    canvas.selectionBorderColor = 'rgba(72,216,160,1.0)';
-    canvas.selectionLineWidth = 2.5;
+    canvas = new fabric.Canvas('mainCanvas', {
+      backgroundSize: 'cover'
+    });
 
-    canvas.renderAll();
-  };
-  bgImage.src = '/../images/defaultBg.jpg';
+    canvas.loadFromJSON(j, function() {
+      canvas.renderAll.bind(canvas);
+      canvas.deactivateAll();
+      canvas.renderAll();
+    });
+
+    const title = $('#editHeader').attr('data-project-title');
+    $('#projectTitleInput').val(title);
+
+  } else {
+
+    // We are creating new project
+    canvas = new fabric.Canvas('mainCanvas', {
+      backgroundSize: 'cover'
+    });
+
+    var bgImage = new Image();
+    bgImage.setAttribute('crossOrigin', 'Anonymous');
+    bgImage.onload = function() {
+      // this is syncronous
+      var fabricImage = new fabric.Image(bgImage);
+      canvas.setBackgroundImage(fabricImage);
+      canvas.backgroundImage.width = canvas.getWidth();
+      canvas.backgroundImage.height = canvas.getHeight();
+
+      // Customizing selector
+      canvas.selectionColor = 'rgba(72,216,160,0.3)';
+      canvas.selectionBorderColor = 'rgba(72,216,160,1.0)';
+      canvas.selectionLineWidth = 2.5;
+
+      canvas.renderAll();
+    };
+    bgImage.src = '/../images/defaultBg.jpg';
+  }
 
 }
 
@@ -130,6 +156,7 @@ function saveProject() {
   })
   .done(data => {
     console.log('SUCCESS', data);
+    swal('Success!', 'Project was saved to your profile :)', 'success');
   })
   .fail(data => {
     console.log('Fail', data);
@@ -137,10 +164,33 @@ function saveProject() {
 
 }
 
+function saveChanges() {
+  console.log('Save changes!');
 
-// <% if(project) { %>
-//
-//   console.log('Project is ' + project._id);
-//   <h1>ya</h1>
-//
-// <% } else { %>
+  // Data is ready
+  const imagesObject = JSON.stringify(canvas.toJSON());
+  const projectTitle = $('#projectTitleInput').val();
+  const canWidth = canvas.getWidth();
+  const canHeight = canvas.getHeight();
+
+  var data = {};
+  data.title = projectTitle;
+  data.canvasObject = imagesObject;
+  data.canvasWidth = canWidth;
+  data.canvasHeight = canHeight;
+
+  console.log(`{Trying to save data: ${data}}`);
+
+  $.ajax({
+    type: 'POST',
+    data: data,
+    url: '/projects'
+  })
+  .done(data => {
+    console.log('SUCCESS', data);
+    swal('Success!', 'Project was saved to your profile :)', 'success');
+  })
+  .fail(data => {
+    console.log('Fail', data);
+  });
+}

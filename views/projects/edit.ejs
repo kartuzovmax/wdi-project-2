@@ -1,15 +1,29 @@
-<h1>Edit</h1>
+<% if (locals.isLoggedIn) { %>
+  <h1 id="editHeader" data-project-canvas="<%= project.canvasObject %>" data-project-title="<%= project.title %>"></h1>
 
-
+  <% } else { %>
+    <h1>User is not logged</h1>
+  <% } %>
 
 <div class="editArea">
 
-  <input type="text" name="firstname" value="Project Name" id="projectTitle">
+  <input type="text" name="firstname" value="" id="projectTitleInput" placeholder="Project title...">
   <canvas id="mainCanvas" width="400" height="400" value="yes"></canvas>
   <input type="text" name="" value="" id="bgSearch">
-  <button type="button" name="button" id="addStickerButton">Add a Sticker</button>
-  <button type="button" name="button" id="deleteStickerButton">Delete Sticker</button>
-  <button type="button" name="button" id="saveButton">Download</button>
-  <button type="button" name="button" id="saveProjectButton">Save Project</button>
+
+  <div class="buttonsPanel">
+    <button type="button" name="button" id="addStickerButton" class="greenRoundButton">Sticker</button>
+    <button type="button" name="button" id="addBackgroundButton" class="greenRoundButton">Background</button>
+    <button type="button" name="button" id="saveChangesButton" class="greenRoundButton">Save Changes</button>
+    <button type="button" name="button" id="saveButton" class="greenRoundButton">Download</button>
+  </div>
+
+  <div class="toolsPanel">
+    <button type="button" name="button" id="layerUpButton" class="greenRoundButton">Layer Up</button>
+    <button type="button" name="button" id="layerDownButton" class="greenRoundButton">Layer Down</button>
+    <button type="button" name="button" id="cloneButton" class="greenRoundButton">Clone</button>
+    <button type="button" name="button" id="deleteStickerButton" class="redRoundButton">Delete</button>
+  </div>
+
 
 </div>
