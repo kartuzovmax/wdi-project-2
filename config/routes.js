@@ -38,7 +38,7 @@ router.route('/projects/new')
       .get(projects.new);
 router.route('/projects/:id')
       .get(projects.show)
-      .get(projects.edit)
+      .put(projects.update)
       .delete(projects.delete);
 
 router.route('/register')

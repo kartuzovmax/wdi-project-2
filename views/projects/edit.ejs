@@ -1,5 +1,9 @@
 <% if (locals.isLoggedIn) { %>
-  <h1 id="editHeader" data-project-canvas="<%= project.canvasObject %>" data-project-title="<%= project.title %>"></h1>
+
+  <h1 id="editHeader" data-project-canvas="<%= project.canvasObject %>"
+                      data-project-title="<%= project.title %>"
+                      data-project-id="<%= project._id %>">
+  </h1>
 
   <% } else { %>
     <h1>User is not logged</h1>

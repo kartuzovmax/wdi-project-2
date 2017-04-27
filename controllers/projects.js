@@ -66,18 +66,23 @@ function projectsShowApi(req, res, next) {
     .catch(next);
 }
 
-function projectsEdit(req, res, next) {
+function projectsUpdate(req, res, next) {
   Project
     .findById(req.params.id)
     .then((project) => {
       if (!project) {
-        const err = new Error('Film not found');
+        const err = new Error('Project not found');
         err.status = 404;
         throw err;
       }
 
-      res.render('projects/edit', { project });
+      for(const field in req.body) {
+        project[field] = req.body[field];
+      }
+
+      return project.save();
     })
+    .then(() => res.redirect('/users/:id'))
     .catch(next);
 }
 
@@ -105,8 +110,8 @@ function projectsNew(req,res) {
 module.exports = {
   create: projectsCreate,
   show: projectsShow,
-  edit: projectsEdit,
+  showAPI: projectsShowApi,
+  update: projectsUpdate,
   delete: projectsDelete,
-  new: projectsNew,
-  showAPI: projectsShowApi
+  new: projectsNew
 };

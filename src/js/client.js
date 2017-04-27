@@ -4,7 +4,7 @@ $(init);
 
 var canvas;
 var $buttonsPanel, $toolsPanel;
-let j, projectsData;
+let j, projectsData, projectsID;
 
 function init() {
 
@@ -32,6 +32,8 @@ function loadCanvas() {
   if (document.getElementById('editHeader')) {
 
     // Project already exists
+
+    projectsID = $('#editHeader').attr('data-project-id');
     projectsData = $('#editHeader').attr('data-project-canvas');
     j = JSON.parse(projectsData);
 
@@ -165,6 +167,7 @@ function saveProject() {
 }
 
 function saveChanges() {
+
   console.log('Save changes!');
 
   // Data is ready
@@ -182,13 +185,12 @@ function saveChanges() {
   console.log(`{Trying to save data: ${data}}`);
 
   $.ajax({
-    type: 'POST',
+    type: 'PUT',
     data: data,
-    url: '/projects'
+    url: `/projects/${projectsID}`
   })
   .done(data => {
     console.log('SUCCESS', data);
-    swal('Success!', 'Project was saved to your profile :)', 'success');
   })
   .fail(data => {
     console.log('Fail', data);
