@@ -6,12 +6,14 @@
   <ul>
     <% currentUser.projects.forEach(project => { %>
       <li>
+        <div class="thumbnailContainer">
         <a href="/projects/<%= project.id %>"><%= project.title %></a>
         <canvas class="thumbnailCanvas" id="canvasid" width="400" height="400" data-canvas-json="<%= JSON.stringify(project.canvasObject) %>"></canvas>
         <form method="POST" action="/projects/<%= project.id %>">
           <input type="hidden" name="_method" value="DELETE">
           <button class="btn btn-danger">Delete</button>
         </form>
+        </div>
       </li>
     <% }) %>
   </ul>

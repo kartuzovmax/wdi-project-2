@@ -9,14 +9,15 @@ function projectsCreate(req,res) {
 
   project.save()
   .then((project) => {
-    req.flash('info', `Project created: ${project.title}, ${project.canvasHeight}, ${project.canvasWidth}, ${project.canvasObject}!`);
+    req.flash('info', `Project created: ${project.title}, ${project.canvasObject}!`);
     res.locals.currentUser.projects.addToSet(project);
     return res.locals.currentUser.save();
   })
   .then(user => {
     return res.status(200).json(user);
   })
-  .catch(() => {
+  .catch((err) => {
+    console.log(err);
     res.status(500).end();
   });
 }

@@ -5,6 +5,7 @@ $(init);
 var canvas;
 var $buttonsPanel, $toolsPanel;
 let j, projectsData, projectsID;
+let isEditingMode;
 
 function init() {
 
@@ -18,12 +19,29 @@ function init() {
   $('#layerUpButton').click(layerUp);
   $('#cloneButton').click(cloneSticker);
 
-  // Creating a canvas using Fabric.js
+  $('body').click(function(e) {
+    console.log(e.target.nodeName);
+    if (isEditingMode &&
+       (e.target.nodeName === 'DIV' || e.target.nodeName === 'MAIN' || e.target.nodeName === 'INPUT' || e.target.nodeName === 'BODY')) {
+
+      isEditingMode = false;
+      canvas.deactivateAll();
+      canvas.renderAll();
+      $buttonsPanel.toggle();
+      $toolsPanel.toggle();
+    }
+  });
+
+
+    // Creating a canvas using Fabric.js
   loadCanvas();
   $buttonsPanel = $('.buttonsPanel');
   $toolsPanel = $('.toolsPanel');
 
   $toolsPanel.toggle();
+
+    // flag
+  isEditingMode = false;
 }
 
 function loadCanvas() {
@@ -42,9 +60,26 @@ function loadCanvas() {
     });
 
     canvas.loadFromJSON(j, function() {
+
+      // Looping through all stickers and setting them some properties
+      for (let i = 0; i < canvas.getObjects().length; i++) {
+
+        canvas.item(i).on('selected', selectSticker);
+        canvas.item(i).on('deselected', deselectSticker);
+        canvas.item(i).set({
+          borderColor: '#48d8a0',
+          cornerColor: '#48d8a0',
+          cornerSize: 12,
+          transparentCorners: false
+        });
+      }
+      // Customizing selector
+      canvas.selectionColor = 'rgba(72,216,160,0.3)';
+      canvas.selectionBorderColor = 'rgba(72,216,160,1.0)';
+      canvas.selectionLineWidth = 2.5;
+
       canvas.renderAll.bind(canvas);
-      canvas.deactivateAll();
-      canvas.renderAll();
+      //canvas.renderAll();
     });
 
     const title = $('#editHeader').attr('data-project-title');
@@ -75,18 +110,22 @@ function loadCanvas() {
     };
     bgImage.src = '/../images/defaultBg.jpg';
   }
-
+  canvas.preserveObjectStacking = true;
 }
+
+
 
 function addStickerToCanvas() {
 
-  fabric.Image.fromURL($('#bgSearch').val(), function(oImg) {
+  fabric.Image.fromURL(prompt('Image URL: '), function(oImg) {
     $(oImg).attr('crossOrigin', 'Anonymous');
     //addStickerToArray($('#bgSearch').val()); // adding sticker to the array
     $('#bgSearch').val(''); // clearing the text field
 
     oImg.on('selected', selectSticker);
+
     oImg.on('deselected', deselectSticker);
+
     canvas.add(oImg);
     oImg.set({
       borderColor: '#48d8a0',
@@ -104,13 +143,16 @@ function convertToImage() {
 }
 
 function selectSticker() {
-  console.log('Selected sticker!');
+
+  console.log('Select sticker!');
+  isEditingMode = true;
   $buttonsPanel.toggle();
   $toolsPanel.toggle();
 }
 
 function deselectSticker() {
   console.log('Deselect sticker!');
+  isEditingMode = false;
   $buttonsPanel.toggle();
   $toolsPanel.toggle();
 }
@@ -119,10 +161,12 @@ function deleteSticker() {
   console.log('Delete sticker: ' + canvas.getActiveObject());
   canvas.getActiveObject().remove();
 }
+
 function layerUp() {
   canvas.bringForward(canvas.getActiveObject());
   canvas.renderAll();
 }
+
 function layerDown() {
   canvas.sendBackwards(canvas.getActiveObject());
   canvas.renderAll();
@@ -137,19 +181,16 @@ function cloneSticker() {
 
 function saveProject() {
 
-  // Data is ready
+    // Data is ready
   const imagesObject = JSON.stringify(canvas.toJSON());
   const projectTitle = $('#projectTitleInput').val();
-  const canWidth = canvas.getWidth();
-  const canHeight = canvas.getHeight();
+
 
   var data = {};
   data.title = projectTitle;
   data.canvasObject = imagesObject;
-  data.canvasWidth = canWidth;
-  data.canvasHeight = canHeight;
 
-  console.log(`{Trying to save data: ${data}}`);
+  console.log(`${data}}`);
 
   $.ajax({
     type: 'POST',
@@ -163,24 +204,20 @@ function saveProject() {
   .fail(data => {
     console.log('Fail', data);
   });
-
 }
 
 function saveChanges() {
 
   console.log('Save changes!');
 
-  // Data is ready
+    // Data is ready
   const imagesObject = JSON.stringify(canvas.toJSON());
   const projectTitle = $('#projectTitleInput').val();
-  const canWidth = canvas.getWidth();
-  const canHeight = canvas.getHeight();
+
 
   var data = {};
   data.title = projectTitle;
   data.canvasObject = imagesObject;
-  data.canvasWidth = canWidth;
-  data.canvasHeight = canHeight;
 
   console.log(`{Trying to save data: ${data}}`);
 
@@ -189,6 +226,7 @@ function saveChanges() {
     data: data,
     url: `/projects/${projectsID}`
   })
+
   .done(data => {
     console.log('SUCCESS', data);
   })

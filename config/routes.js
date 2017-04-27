@@ -34,8 +34,10 @@ router.route('/users/:id')
 
 router.route('/projects')
       .post(projects.create);
+
 router.route('/projects/new')
       .get(projects.new);
+
 router.route('/projects/:id')
       .get(projects.show)
       .put(projects.update)

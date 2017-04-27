@@ -2,9 +2,9 @@ $mainFont: 'Comfortaa', cursive;
 
 $mainColor: #1abc9c;
 $greenColor: #2ecc71;
-$darkGreenColor: #27ae60;
+$lightGreenColor: #34ed85;
 $redColor: #e74c3c;
-$darkRedColor: #c0392b;
+$lightRedColor: #ff5342;
 $bgColor: #2c303a;
 $greyColor: #95a5a6;
 $darkGreyColor: #7f8c8d;
@@ -28,23 +28,31 @@ p {
   font-family: $mainFont;
   color: $mainColor;
 }
+
 canvas {
   border-radius: 5px;
 }
+
 .canvas-container {
   padding-left: 0;
   padding-right: 0;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 5px;
   display: block;
   width: 400px;
 }
+
 #canvasid {
   //border-radius: 5px;
   margin-left: 0;
   //margin: 0 auto;
 }
-
+.thumbnailCanvas {
+  border-style: solid;
+  border-width: thin;
+  border-color: white;
+}
 .buttonsPanel {
   display: block;
 }
@@ -69,10 +77,15 @@ input {
   .navbar-brand {
     color: white;
     font-family: $mainFont;
+    width: 300px;
   }
   .nav-link {
     color: $greyColor;
     font-family: $mainFont;
+    font-size: 12px;
+    // margin: 0 60px;
+    width: 200px;
+
   }
   .nav-link:hover {
     color: white;
@@ -91,10 +104,13 @@ input {
   padding: 5px 10px;
   display: inline-block;
   color: white;
+  font-size: 12px;
   font-family: $mainFont;
+  transition: all .2s ease-in-out;
 }
 .redRoundButton:hover {
-  background-color: $darkRedColor;
+  background-color: $lightRedColor;
+  transform: scale(1.1);
 }
 .redRoundButton:focus {
   outline: 0;
@@ -106,14 +122,18 @@ input {
   box-shadow:none;
   border-radius: 35px;
   background-color: $greenColor;
-  font-size: 15px;
   padding: 5px 10px;
+  margin: 10px 3px;
   display: inline-block;
   color: white;
+  font-size: 12px;
   font-family: $mainFont;
+  transition: all .2s ease-in-out;
 }
+
 .greenRoundButton:hover {
-  background-color: $darkGreenColor;
+  background-color: $lightGreenColor;
+  transform: scale(1.1);
 }
 .greenRoundButton:focus {
   outline: 0;
@@ -126,6 +146,10 @@ input {
   display: block;
   height:600px;
   width:600px;
+}
+
+.thumbnailContainer {
+
 }
 
 #projectTitleInput {
@@ -142,7 +166,9 @@ input {
 
 .profilePicture {
   width:160px;
+  height: 160px;
   border-radius: 50%;
-  border-width: thin;
+  border-style: solid;
+  border-width: medium;
   border-color: white;
 }
