@@ -112,7 +112,7 @@ input {
   border-radius: 35px;
   background-color: $redColor;
   padding: 5px 10px;
-  display: inline-block;
+  display: inline;
   color: white;
   font-size: 12px;
   font-family: $mainFont;
@@ -125,6 +125,7 @@ input {
 .redRoundButton:focus {
   outline: 0;
 }
+
 
 .greenRoundButton {
   border: 0;
@@ -149,6 +150,7 @@ input {
   outline: 0;
 }
 
+
 .editArea {
   text-align:center;
   background-color: #2c303a;
@@ -159,7 +161,30 @@ input {
 }
 
 .thumbnailContainer {
+  width: 400px;
+  // margin-left: auto;
+  // margin-right: auto;
+  // margin-top: 45px;
+  // margin-bottom: 45px;
+  margin: 45px 100px;
+  float: left;
+}
 
+.thumbnailLink {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: $mainFont;
+  color: $greenColor;
+  display: block;
+}
+.thumbnailLink:hover {
+  color: white;
+}
+
+.jumbotron {
+  //background-image: url('https://3f0861b6bc98c08770be-789248f0448453b835406008213ad4a2.ssl.cf2.rackcdn.com/cover_photo_682812_1460367762.png');
+  background-color: #16181e;
+  background-size: cover;
 }
 
 #projectTitleInput {
@@ -175,10 +200,62 @@ input {
 }
 
 .profilePicture {
+
+  text-align: center;
   width:160px;
   height: 160px;
   border-radius: 50%;
   border-style: solid;
   border-width: medium;
   border-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  display: block;
+}
+
+.thumbnailLink {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: $mainFont;
+  color: $greenColor;
+  display: block;
+}
+.thumbnailLink:hover {
+  color: white;
+}
+
+.downloadLink {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: $mainFont;
+  color: $greyColor;
+  display: inline;
+}
+.downloadLink:hover {
+  color: $greenColor;
+}
+
+.deleteLink {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: $mainFont;
+  color: $greyColor;
+  display: inline;
+}
+.deleteLink:hover {
+  color: redColor;
+}
+
+#head {
+  width: 100%;
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+}
+
+#head-child {
+  width: 100%;
+  text-align: center;
+  color: $greyColor;
 }

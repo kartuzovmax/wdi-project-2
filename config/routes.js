@@ -11,6 +11,7 @@ const projects      = require('../controllers/projects');
 const galleries     = require('../controllers/galleries');
 const users         = require('../controllers/users');
 
+
 function secureRoute(req, res, next) {
   if (!req.session.userId) {
     return req.session.regenerate(() => {
