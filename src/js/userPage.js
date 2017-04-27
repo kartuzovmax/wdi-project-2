@@ -19,17 +19,12 @@ function init() {
     j = JSON.parse(canvasJson);
     console.log('CANVAS ' + i);
 
-    canvas = new fabric.Canvas(uniqID, {
+    canvas = new fabric.StaticCanvas(uniqID, {
       backgroundSize: 'cover'
     });
 
     canvas.loadFromJSON(j, function() {
       canvas.renderAll.bind(canvas);
-      canvas.deactivateAll();
-      canvas.renderAll();
-      canvas.forEachObject(function(object){
-        object.selectable = false;
-      });
     });
   });
 }

@@ -9,7 +9,6 @@ let isEditingMode;
 
 function init() {
 
-
   $('#addStickerButton').click(addStickerToCanvas);
   $('#saveButton').click(convertToImage);
   $('#saveProjectButton').click(saveProject);
@@ -95,6 +94,7 @@ function loadCanvas() {
     var bgImage = new Image();
     bgImage.setAttribute('crossOrigin', 'Anonymous');
     bgImage.onload = function() {
+
       // this is syncronous
       var fabricImage = new fabric.Image(bgImage);
       canvas.setBackgroundImage(fabricImage);
@@ -125,6 +125,7 @@ function addStickerToCanvas() {
     oImg.on('selected', selectSticker);
 
     oImg.on('deselected', deselectSticker);
+    oImg.scaleToWidth(canvas.getWidth());
 
     canvas.add(oImg);
     oImg.set({

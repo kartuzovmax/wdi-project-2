@@ -79,19 +79,25 @@ input {
     font-family: $mainFont;
     width: 300px;
   }
+  .nav-item {
+    height: 100%;
+  }
   .nav-link {
     color: $greyColor;
     font-family: $mainFont;
     font-size: 12px;
     // margin: 0 60px;
     width: 200px;
-
+    text-align: center;
+    height: 100%;
   }
   .nav-link:hover {
+    background-color: $greyColor;
     color: white;
   }
   .create-link:hover {
-    color: $greenColor;
+    background-color: $greenColor;
+    color:white;
   }
 }
 
