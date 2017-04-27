@@ -106,7 +106,7 @@ function loadCanvas() {
 
       canvas.renderAll();
     };
-    bgImage.src = '/../images/defaultBg.jpg';
+    bgImage.src = './images/defaultBg.jpg';
   }
   canvas.preserveObjectStacking = true;
 }
